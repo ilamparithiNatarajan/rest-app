@@ -1,0 +1,33 @@
+<settings>
+<!--    <mirrors>-->
+<!--        <mirror>-->
+<!--            <id>nexus</id>-->
+<!--            <mirrorOf>*</mirrorOf>-->
+<!--            <url>https://nexus.sbx.zone/repository/maven-public/</url>-->
+<!--        </mirror>-->
+<!--    </mirrors>-->
+    <profiles>
+        <profile>
+            <id>nexus</id>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>https://repo1.maven.org/maven2/</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>central</id>
+                    <url>https://repo1.maven.org/maven2/</url>
+                    <releases><enabled>true</enabled></releases>
+                    <snapshots><enabled>true</enabled></snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+    <activeProfiles>
+        <activeProfile>nexus</activeProfile>
+    </activeProfiles>
+</settings>
