@@ -1,4 +1,4 @@
-package com.ilam.Practice1;
+package com.london.reboot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,8 +1,7 @@
-package com.ilam.Practice1;
+package com.london.reboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootApplication

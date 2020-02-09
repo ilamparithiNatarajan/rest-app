@@ -8,11 +8,11 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ilam</groupId>
-	<artifactId>Practice1</artifactId>
+	<groupId>com.london</groupId>
+	<artifactId>reboot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Practice1</name>
-	<description>Demo project for Spring Boot</description>
+	<name>reboot</name>
+	<description>Backend service for reboot</description>
 
 	<properties>
 		<java.version>1.8</java.version>

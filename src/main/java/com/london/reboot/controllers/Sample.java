@@ -1,4 +1,4 @@
-package com.ilam.Practice1.controllers;
+package com.london.reboot.controllers;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
