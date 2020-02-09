@@ -8,8 +8,15 @@ build:
 start:
 	docker-compose up
 
+stop:
+	docker-compose down
+
 tag:
 	docker tag ilampa/rest-app:local ilampa/rest-app:$(COMMIT)
 
 push:
 	docker push ilampa/rest-app:$(COMMIT)
+
+deploy:
+	kubectl run backend --image=ilampa/rest-app:$(COMMIT) --port=8080
+	kubectl expose deployment.apps/backend --name=api-endpoint --type=LoadBalancer  --port 8080 --target-port=8080
