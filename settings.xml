@@ -1,11 +1,4 @@
 <settings>
-<!--    <mirrors>-->
-<!--        <mirror>-->
-<!--            <id>nexus</id>-->
-<!--            <mirrorOf>*</mirrorOf>-->
-<!--            <url>https://nexus.sbx.zone/repository/maven-public/</url>-->
-<!--        </mirror>-->
-<!--    </mirrors>-->
     <profiles>
         <profile>
             <id>nexus</id>
