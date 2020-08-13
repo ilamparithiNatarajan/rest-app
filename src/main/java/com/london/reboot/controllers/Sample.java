@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class Sample {
     @GetMapping
     public String getVersion() {
-        return "version-1 beta";
+        return "hello ilam";
     }
 }
