@@ -37,4 +37,23 @@ class Practice1ApplicationTests {
     System.out.println("test success !");
 		}
 
+  @Test
+  void testSwagger() {
+      final ResponseEntity<String> ui =
+              restTemplate.exchange(
+                      HTTP_URL.format(HTTP_URL, port, "/swagger-ui/index.html#"),
+                      HttpMethod.GET,
+                      new HttpEntity<>(new HttpHeaders()),
+                      String.class);
+      assertEquals(HttpStatus.OK, ui.getStatusCode());
+      final ResponseEntity<String> api =
+              restTemplate.exchange(
+                      HTTP_URL.format(HTTP_URL, port, "/v3/api-docs"),
+                      HttpMethod.GET,
+                      new HttpEntity<>(new HttpHeaders()),
+                      String.class);
+      assertEquals(HttpStatus.OK, api.getStatusCode());
+
+  }
+
 }
