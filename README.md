@@ -2,3 +2,13 @@
 Backend rest services
 
 swagger: http://localhost:8080/swagger-ui/index.html#
+
+redis:
+    redis is used as datastore.
+    
+    $ brew install redis
+    
+    $ redis-server
+    
+    # to flush all keys in redis
+    $ redis-cli FLUSHALL
