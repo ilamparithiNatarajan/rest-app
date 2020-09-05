@@ -28,4 +28,12 @@ public class ErrorHandler {
         });
         return errors;
     }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(UserNotFoundException.class)
+    public @ResponseBody
+    String handleUserNotFoundException(
+            UserNotFoundException ex) {
+        return "User not found";
+    }
 }
