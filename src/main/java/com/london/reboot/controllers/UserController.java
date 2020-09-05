@@ -41,9 +41,7 @@ public class UserController {
     @GetMapping(path = "/{id}", produces = "application/json")
     public @ResponseBody
     User getUser(@PathVariable String id) {
-    System.out.println("id : "+id);
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-
     }
 
 }

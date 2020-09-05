@@ -53,9 +53,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20200518</version>
+			<groupId>com.github.kstyrc</groupId>
+			<artifactId>embedded-redis</artifactId>
+			<version>0.6</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>

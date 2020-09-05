@@ -1,7 +1,7 @@
 package com.london.reboot.controllers;
 
+import com.london.reboot.TestRedisConfiguration;
 import com.london.reboot.domain.User;
-import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -17,8 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -26,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.util.MimeTypeUtils.ALL_VALUE;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = TestRedisConfiguration.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 public class UserControllerTest {
