@@ -1,0 +1,15 @@
+<configuration scan="true" scanPeriod="15 seconds">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    <logger name="com.london.reboot" level="${app-logging-level}" />
+    <logger name="org.springframework.web" level="${spring-web-logging-level}" />
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
