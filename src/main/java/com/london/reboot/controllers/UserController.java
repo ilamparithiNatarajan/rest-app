@@ -3,6 +3,8 @@ package com.london.reboot.controllers;
 import com.london.reboot.data.UserRepository;
 import com.london.reboot.domain.User;
 import com.london.reboot.exception.UserNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,11 +24,15 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    final static Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @PostMapping(path = "/new", consumes = "application/json", produces = "text/plain")
     public @ResponseBody
     String createUser(@Valid @RequestBody User user) {
+        logger.info("user details in request : fn:{}, ln:{}", user.getFirstName(), user.getLastName());
         String fullName = user.getFirstName() + " " + user.getLastName();
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        logger.debug("id of saved user : {}", savedUser.getId());
         return "user created : " + fullName;
     }
 
@@ -35,6 +41,7 @@ public class UserController {
     List<User> getUsers() {
         List<User> users = new ArrayList<>();
         userRepository.findAll().forEach(users::add);
+
         return users;
     }
 
