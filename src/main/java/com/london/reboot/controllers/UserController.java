@@ -30,8 +30,8 @@ public class UserController {
     public @ResponseBody
     String createUser(@Valid @RequestBody User user) {
         logger.info("user details in request : fn:{}, ln:{}", user.getFirstName(), user.getLastName());
-        String fullName = user.getFirstName() + " " + user.getLastName();
-        User savedUser = userRepository.save(user);
+        var fullName = user.getFirstName() + " " + user.getLastName();
+        var savedUser = userRepository.save(user);
         logger.debug("id of saved user : {}", savedUser.getId());
         return "user created : " + fullName;
     }
