@@ -37,11 +37,11 @@ public class UserControllerTest {
     @ParameterizedTest
     @MethodSource("names")
     void addUsers(String firstName, String lastName) {
-        String requestBody = String.format("{\"firstName\":\"%s\", \"lastName\":\"%s\"}", firstName, lastName);
-        HttpHeaders headers = new HttpHeaders();
+        var requestBody = String.format("{\"firstName\":\"%s\", \"lastName\":\"%s\"}", firstName, lastName);
+        var headers = new HttpHeaders();
         headers.add("Content-Type", APPLICATION_JSON_VALUE);
         headers.add("Accept", ALL_VALUE);
-        final ResponseEntity<String> exchange =
+        final var exchange =
                 restTemplate.exchange(
                         HTTP_URL.format(HTTP_URL, port, "/users/new"),
                         HttpMethod.POST,
@@ -53,7 +53,7 @@ public class UserControllerTest {
 
     @Test
     void getUsers() {
-        final ResponseEntity<User[]> exchange =
+        final var exchange =
                 restTemplate.exchange(
                         HTTP_URL.format(HTTP_URL, port, "/users"),
                         HttpMethod.GET,

@@ -14,10 +14,10 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 @EnableSwagger2
 @SpringBootApplication
-public class Practice1Application {
+public class RestfulApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Practice1Application.class, args);
+		SpringApplication.run(RestfulApplication.class, args);
 	}
 
 	@Bean
@@ -32,7 +32,7 @@ public class Practice1Application {
 
 	@Bean
 	public RedisTemplate<String, Object> redisTemplate() {
-		RedisTemplate<String, Object> template = new RedisTemplate<>();
+		var template = new RedisTemplate<String, Object>();
 		template.setConnectionFactory(jedisConnectionFactory());
 		return template;
 	}
