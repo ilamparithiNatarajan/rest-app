@@ -1,19 +1,16 @@
 package com.london.reboot;
 
-import com.sun.management.HotSpotDiagnosticMXBean;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.event.annotation.AfterTestClass;
 
-import javax.management.MBeanServer;
-import java.io.IOException;
-import java.lang.management.ManagementFactory;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
