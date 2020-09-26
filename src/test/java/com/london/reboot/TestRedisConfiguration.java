@@ -11,7 +11,7 @@ import java.io.IOException;
 @TestConfiguration
 public class TestRedisConfiguration {
 
-    private int redisPort = 6379;
+    private final int redisPort = 6379;
     RedisServer redisServer = new RedisServer( redisPort);
     Jedis jedis = new Jedis("localhost", redisPort);
 
