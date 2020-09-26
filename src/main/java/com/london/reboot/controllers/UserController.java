@@ -26,7 +26,7 @@ public class UserController {
 
     final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @PostMapping(path = "/new", consumes = "application/json", produces = "text/plain")
+    @PostMapping(consumes = "application/json", produces = "text/plain")
     public @ResponseBody
     String createUser(@Valid @RequestBody User user) {
         logger.info("user details in request : fn:{}, ln:{}", user.getFirstName(), user.getLastName());
