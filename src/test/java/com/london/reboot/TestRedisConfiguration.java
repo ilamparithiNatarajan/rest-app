@@ -1,6 +1,6 @@
 package com.london.reboot;
 
-import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.embedded.RedisServer;
 
@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.IOException;
 
-@TestConfiguration
+@Component
 public class TestRedisConfiguration {
 
     private final int redisPort = 6379;
