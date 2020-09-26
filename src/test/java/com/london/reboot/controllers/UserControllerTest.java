@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -34,16 +36,19 @@ public class UserControllerTest {
     private int port;
     final private TestRestTemplate restTemplate = new TestRestTemplate();
 
+    final static Logger logger = LoggerFactory.getLogger(UserControllerTest.class);
+
     @ParameterizedTest
     @MethodSource("names")
     void addUsers(String firstName, String lastName) {
         var requestBody = String.format("{\"firstName\":\"%s\", \"lastName\":\"%s\"}", firstName, lastName);
+        logger.debug("request body : {}", requestBody);
         var headers = new HttpHeaders();
         headers.add("Content-Type", APPLICATION_JSON_VALUE);
         headers.add("Accept", ALL_VALUE);
         final var exchange =
                 restTemplate.exchange(
-                        HTTP_URL.format(HTTP_URL, port, "/users/new"),
+                        HTTP_URL.format(HTTP_URL, port, "/users"),
                         HttpMethod.POST,
                         new HttpEntity<>(requestBody, headers),
                         String.class);
