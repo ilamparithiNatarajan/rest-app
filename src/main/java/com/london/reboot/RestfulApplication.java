@@ -9,6 +9,21 @@ import springfox.documentation.spi.DocumentationType;
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import javax.cache.configuration.MutableConfiguration;
+import javax.cache.spi.CachingProvider;
+import javax.cache.Caching;
+import javax.cache.CacheManager;
+import javax.cache.Cache;
+import javax.cache.configuration.FactoryBuilder;
+import javax.cache.expiry.CreatedExpiryPolicy;
+import javax.cache.expiry.Duration;
+import java.util.concurrent.TimeUnit;
+
+
+
+
+
+
 
 
 
@@ -46,5 +61,18 @@ public class RestfulApplication {
 //		jedisConFactory.setPort(6379);
 //		return jedisConFactory;
 //	}
+
+	@Bean
+	public Cache<Long, Object> cache() {
+		CachingProvider cachingProvider = Caching.getCachingProvider();
+		CacheManager cacheManager = cachingProvider.getCacheManager();
+		MutableConfiguration<Long, Object> config
+				= new MutableConfiguration<Long, Object>().setTypes(Long.class, Object.class)
+				.setStoreByValue(false)
+				.setStatisticsEnabled(true)
+				.setExpiryPolicyFactory(FactoryBuilder.factoryOf(new CreatedExpiryPolicy(new Duration(TimeUnit.MINUTES, 5))));
+		return cacheManager
+				.createCache("simpleCache", config);
+	}
 
 }
