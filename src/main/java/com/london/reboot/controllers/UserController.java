@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.cache.Cache;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,9 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    Cache<Long, Object> cache;
 
     final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -47,8 +51,17 @@ public class UserController {
 
     @GetMapping(path = "/{id}", produces = "application/json")
     public @ResponseBody
-    User getUser(@PathVariable String id) {
-        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+    User getUser(@PathVariable Long id) {
+        User user = (User) cache.get(id);
+        if (user == null) {
+            logger.info("cache miss for {}", id);
+            long start = System.nanoTime();
+            user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+            long end = System.nanoTime();
+            logger.debug("{} seconds elapsed in retrieval from redis", end-start);
+            cache.put(id, user);
+        }
+        return user;
     }
 
 }
