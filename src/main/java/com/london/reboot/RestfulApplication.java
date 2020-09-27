@@ -2,6 +2,7 @@ package com.london.reboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -18,13 +19,6 @@ import javax.cache.configuration.FactoryBuilder;
 import javax.cache.expiry.CreatedExpiryPolicy;
 import javax.cache.expiry.Duration;
 import java.util.concurrent.TimeUnit;
-
-
-
-
-
-
-
 
 
 @EnableSwagger2
@@ -63,6 +57,7 @@ public class RestfulApplication {
 //	}
 
 	@Bean
+	@ConditionalOnProperty(name="cache.enabled", havingValue="true")
 	public Cache<Long, Object> cache() {
 		CachingProvider cachingProvider = Caching.getCachingProvider();
 		CacheManager cacheManager = cachingProvider.getCacheManager();

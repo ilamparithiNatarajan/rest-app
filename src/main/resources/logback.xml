@@ -10,6 +10,7 @@
     </appender>
     <logger name="com.london.reboot" level="${app-logging-level}" />
     <logger name="org.springframework.web" level="${spring-web-logging-level}" />
+    <logger name="org.springframework.boot" level="info" />
     <logger name="org.ehcache.core" level="info" />
     <root level="info">
         <appender-ref ref="STDOUT" />

@@ -25,7 +25,7 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
+    @Autowired(required = false)
     Cache<Long, Object> cache;
 
     final static Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -53,18 +53,24 @@ public class UserController {
     public @ResponseBody
     User getUser(@PathVariable Long id) {
         long start1 = System.nanoTime();
-        User user = (User) cache.get(id);
-        long end1 = System.nanoTime();
-        logger.debug("{} seconds elapsed in retrieval from jcache", end1-start1);
-        if (user == null) {
-            logger.info("cache miss for {}", id);
-            long start = System.nanoTime();
-            user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-            long end = System.nanoTime();
-            logger.debug("{} seconds elapsed in retrieval from redis", end-start);
-            cache.put(id, user);
+        if (null != cache) {
+            User user = (User) cache.get(id);
+            long end1 = System.nanoTime();
+            logger.debug("{} seconds elapsed in retrieval from jcache", end1 - start1);
+            if (user == null) {
+                logger.info("cache miss for {}", id);
+                long start = System.nanoTime();
+                user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+                long end = System.nanoTime();
+                logger.debug("{} seconds elapsed in retrieval from redis", end - start);
+                cache.put(id, user);
+            }
+            return user;
+        } else {
+            logger.debug("cache is off");
+            return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         }
-        return user;
+
     }
 
 }
