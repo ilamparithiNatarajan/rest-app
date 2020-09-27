@@ -59,9 +59,9 @@ public class RestfulApplication {
 	@Bean
 	@ConditionalOnProperty(name="cache.enabled", havingValue="true")
 	public Cache<Long, Object> cache() {
-		CachingProvider cachingProvider = Caching.getCachingProvider();
-		CacheManager cacheManager = cachingProvider.getCacheManager();
-		MutableConfiguration<Long, Object> config
+		var cachingProvider = Caching.getCachingProvider();
+		var cacheManager = cachingProvider.getCacheManager();
+		var config
 				= new MutableConfiguration<Long, Object>().setTypes(Long.class, Object.class)
 				.setStoreByValue(false)
 				.setStatisticsEnabled(true)
