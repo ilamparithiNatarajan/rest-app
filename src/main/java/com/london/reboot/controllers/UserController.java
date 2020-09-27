@@ -52,16 +52,16 @@ public class UserController {
     @GetMapping(path = "/{id}", produces = "application/json")
     public @ResponseBody
     User getUser(@PathVariable Long id) {
-        long start1 = System.nanoTime();
+        var start1 = System.nanoTime();
         if (null != cache) {
-            User user = (User) cache.get(id);
-            long end1 = System.nanoTime();
+            var user = (User) cache.get(id);
+            var end1 = System.nanoTime();
             logger.debug("{} seconds elapsed in retrieval from jcache", end1 - start1);
             if (user == null) {
                 logger.info("cache miss for {}", id);
-                long start = System.nanoTime();
+                var start = System.nanoTime();
                 user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-                long end = System.nanoTime();
+                var end = System.nanoTime();
                 logger.debug("{} seconds elapsed in retrieval from redis", end - start);
                 cache.put(id, user);
             }
