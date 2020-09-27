@@ -1,4 +1,5 @@
-<configuration scan="true" scanPeriod="15 seconds">
+<configuration scan="true" scanPeriod="3 seconds">
+    <property scope="context" name="LOG_DATEFORMAT_PATTERN" value="HH:mm:ss.SSS" />
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- encoders are assigned the type
@@ -9,7 +10,7 @@
     </appender>
     <logger name="com.london.reboot" level="${app-logging-level}" />
     <logger name="org.springframework.web" level="${spring-web-logging-level}" />
-    <logger name="org.ehcache.core" level="debug" />
+    <logger name="org.ehcache.core" level="info" />
     <root level="info">
         <appender-ref ref="STDOUT" />
     </root>
