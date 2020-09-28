@@ -15,6 +15,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .httpBasic();
 
+        http.headers().frameOptions().sameOrigin();
+
         // just to check the response headers
     }
 }
