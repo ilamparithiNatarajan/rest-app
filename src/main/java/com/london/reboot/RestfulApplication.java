@@ -1,5 +1,6 @@
 package com.london.reboot;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -11,9 +12,7 @@ import org.springframework.context.annotation.Bean;
 import springfox.documentation.spring.web.plugins.Docket;
 
 import javax.cache.configuration.MutableConfiguration;
-import javax.cache.spi.CachingProvider;
 import javax.cache.Caching;
-import javax.cache.CacheManager;
 import javax.cache.Cache;
 import javax.cache.configuration.FactoryBuilder;
 import javax.cache.expiry.CreatedExpiryPolicy;
@@ -25,6 +24,9 @@ import java.util.concurrent.TimeUnit;
 @SpringBootApplication
 public class RestfulApplication {
 
+	@Value("${redisPort}")
+	private int redisPort;
+
 	public static void main(String[] args) {
 		SpringApplication.run(RestfulApplication.class, args);
 	}
@@ -34,10 +36,10 @@ public class RestfulApplication {
 		return new Docket(DocumentationType.OAS_30);
 	}
 
-	@Bean
-	JedisConnectionFactory jedisConnectionFactory() {
-		return new JedisConnectionFactory();
-	}
+//	@Bean
+//	JedisConnectionFactory jedisConnectionFactory() {
+//		return new JedisConnectionFactory();
+//	}
 
 	@Bean
 	public RedisTemplate<String, Object> redisTemplate() {
@@ -47,14 +49,14 @@ public class RestfulApplication {
 	}
 
 	// use below if you want to configure redis non-defaults
-//	@Bean
-//	JedisConnectionFactory jedisConnectionFactory() {
-//		JedisConnectionFactory jedisConFactory
-//				= new JedisConnectionFactory();
-//		jedisConFactory.setHostName("localhost");
-//		jedisConFactory.setPort(6379);
-//		return jedisConFactory;
-//	}
+	@Bean
+	JedisConnectionFactory jedisConnectionFactory() {
+		JedisConnectionFactory jedisConFactory
+				= new JedisConnectionFactory();
+		jedisConFactory.setHostName("localhost");
+		jedisConFactory.setPort(redisPort);
+		return jedisConFactory;
+	}
 
 	@Bean
 	@ConditionalOnProperty(name="cache.enabled", havingValue="true")
