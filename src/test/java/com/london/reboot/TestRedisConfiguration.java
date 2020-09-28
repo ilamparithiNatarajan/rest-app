@@ -1,5 +1,6 @@
 package com.london.reboot;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.embedded.RedisServer;
@@ -11,7 +12,7 @@ import java.io.IOException;
 @Component
 public class TestRedisConfiguration {
 
-    private final int redisPort = 6379;
+    private final int redisPort = 6380;
     RedisServer redisServer = new RedisServer( redisPort);
     Jedis jedis = new Jedis("localhost", redisPort);
 
