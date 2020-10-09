@@ -1,11 +1,21 @@
 package com.london.reboot;
 
+import com.london.reboot.config.LoggingInterceptor;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.client.RestTemplate;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import springfox.documentation.spi.DocumentationType;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +36,9 @@ public class RestfulApplication {
 
 	@Value("${redisPort}")
 	private int redisPort;
+
+	@Value("${request-response-logging}")
+	private boolean logSwitch;
 
 	public static void main(String[] args) {
 		SpringApplication.run(RestfulApplication.class, args);
@@ -70,6 +83,22 @@ public class RestfulApplication {
 				.setExpiryPolicyFactory(FactoryBuilder.factoryOf(new CreatedExpiryPolicy(new Duration(TimeUnit.MINUTES, 5))));
 		return cacheManager
 				.createCache("simpleCache", config);
+	}
+
+	@Bean
+	public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
+		RestTemplate restTemplate = restTemplateBuilder.build();
+		if(!logSwitch) {
+			return restTemplate;
+		}
+		restTemplate.setRequestFactory(new BufferingClientHttpRequestFactory(new HttpComponentsClientHttpRequestFactory()));
+		List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
+		if (CollectionUtils.isEmpty(interceptors)) {
+			interceptors = new ArrayList<>();
+		}
+		interceptors.add(new LoggingInterceptor());
+		restTemplate.setInterceptors(interceptors);
+		return restTemplate;
 	}
 
 }
