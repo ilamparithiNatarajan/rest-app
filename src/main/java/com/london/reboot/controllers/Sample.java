@@ -1,6 +1,8 @@
 package com.london.reboot.controllers;
 
 
+import java.util.Objects;
+import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +39,7 @@ public class Sample {
 
     @PostMapping(path = "log/{status}")
     public ResponseEntity<String> log(@PathVariable int status) {
+        HttpStatus expectedStatus = HttpStatus.resolve(status);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add("custom", "xxxxx");
@@ -43,7 +47,7 @@ public class Sample {
 
         HttpEntity<String> httpEntity = new HttpEntity<>(request, headers);
         logger.debug("calling {}", url);
-        String finalUrl = url + "/" + status;
+        String finalUrl = url + "/" + Objects.requireNonNull(expectedStatus).value();
         logger.debug("final url {}", finalUrl);
         return restTemplate.exchange(finalUrl, HttpMethod.POST, httpEntity,  String.class);
 
