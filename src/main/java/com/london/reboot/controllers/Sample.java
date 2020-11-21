@@ -42,15 +42,15 @@ public class Sample {
 
     @PostMapping(path = "log/{status}")
     public ResponseEntity<String> log(@PathVariable int status) {
-        HttpStatus expectedStatus = HttpStatus.resolve(status);
-        HttpHeaders headers = new HttpHeaders();
+        var expectedStatus = HttpStatus.resolve(status);
+        var headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.add("custom", "xxxxx");
-        String request = "{\"body\":\"orange\"}";
+        var request = "{\"body\":\"orange\"}";
 
-        HttpEntity<String> httpEntity = new HttpEntity<>(request, headers);
+        var httpEntity = new HttpEntity<String>(request, headers);
         logger.debug("calling {}", url);
-        String finalUrl = url + "/" + Objects.requireNonNull(expectedStatus).value();
+        var finalUrl = url + "/" + Objects.requireNonNull(expectedStatus).value();
         logger.debug("final url {}", finalUrl);
         return restTemplate.exchange(finalUrl, HttpMethod.POST, httpEntity,  String.class);
 

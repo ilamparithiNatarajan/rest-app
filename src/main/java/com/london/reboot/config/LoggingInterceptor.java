@@ -20,9 +20,9 @@ public class LoggingInterceptor implements ClientHttpRequestInterceptor {
     public ClientHttpResponse intercept(HttpRequest req, byte[] reqBody, ClientHttpRequestExecution ex)
             throws IOException {
         logger.debug("Request body: {}", new String(reqBody, StandardCharsets.UTF_8));
-        ClientHttpResponse response = ex.execute(req, reqBody);
-        InputStreamReader isr = new InputStreamReader(response.getBody(), StandardCharsets.UTF_8);
-        String body = new BufferedReader(isr)
+        var response = ex.execute(req, reqBody);
+        var isr = new InputStreamReader(response.getBody(), StandardCharsets.UTF_8);
+        var body = new BufferedReader(isr)
                 .lines()
                 .collect(Collectors.joining("\n"));
         logger.debug("Response body: {}", body);
