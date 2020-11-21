@@ -1,8 +1,8 @@
 package com.london.reboot.controllers;
 
 
+import com.london.reboot.service.SampleService;
 import java.util.Objects;
-import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +32,9 @@ public class Sample {
     @Autowired
     RestTemplate restTemplate;
 
+    @Autowired
+    SampleService sampleService;
+
     @GetMapping
     public String getVersion() {
         return "hello ilam";
@@ -52,4 +55,14 @@ public class Sample {
         return restTemplate.exchange(finalUrl, HttpMethod.POST, httpEntity,  String.class);
 
     }
+
+    @GetMapping(path = "retry")
+    public ResponseEntity<String> retry() {
+        sampleService.retry();
+        return new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+    }
+
+
+
+
 }
