@@ -44,7 +44,7 @@ public class RestfulApplication {
 	private boolean logSwitch;
 
 	public static void main(String[] args) {
-		SpringApplication springApplication = new SpringApplication(RestfulApplication.class);
+		var springApplication = new SpringApplication(RestfulApplication.class);
 		springApplication.setApplicationStartup(new BufferingApplicationStartup(100));
 		springApplication.run(args);
 	}
@@ -69,7 +69,7 @@ public class RestfulApplication {
 	// use below if you want to configure redis non-defaults
 	@Bean
 	JedisConnectionFactory jedisConnectionFactory() {
-		JedisConnectionFactory jedisConFactory
+		var jedisConFactory
 				= new JedisConnectionFactory();
 		jedisConFactory.setHostName("localhost");
 		jedisConFactory.setPort(redisPort);
@@ -92,12 +92,12 @@ public class RestfulApplication {
 
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
-		RestTemplate restTemplate = restTemplateBuilder.build();
+		var restTemplate = restTemplateBuilder.build();
 		if(!logSwitch) {
 			return restTemplate;
 		}
 		restTemplate.setRequestFactory(new BufferingClientHttpRequestFactory(new HttpComponentsClientHttpRequestFactory()));
-		List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
+		var interceptors = restTemplate.getInterceptors();
 		if (CollectionUtils.isEmpty(interceptors)) {
 			interceptors = new ArrayList<>();
 		}
