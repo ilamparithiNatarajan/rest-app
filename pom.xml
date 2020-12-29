@@ -166,6 +166,7 @@
 								<goals>
 									<goal>report</goal>
 								</goals>
+								<phase>package</phase>
 							</execution>
 						</executions>
 					</plugin>
