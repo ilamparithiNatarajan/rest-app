@@ -15,7 +15,7 @@
 	<description>Backend service for reboot</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>16</java.version>
 		<sonar.projectKey>ilam-natarajan_rest-app</sonar.projectKey>
 		<sonar.organization>ilam-natarajan</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -154,8 +154,8 @@
 				    <version>1.18.16</version>
 				  </path>
 				</annotationProcessorPaths>
-				<source>11</source>
-				<target>11</target>
+				<source>16</source>
+				<target>16</target>
 			      </configuration>
 			    </plugin>
 		</plugins>
