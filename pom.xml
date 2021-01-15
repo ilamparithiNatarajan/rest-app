@@ -19,7 +19,7 @@
 		<sonar.projectKey>ilam-natarajan_rest-app</sonar.projectKey>
 		<sonar.organization>ilam-natarajan</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<lombok.version>1.18.0</lombok.version>
+		<lombok.version>1.18.16</lombok.version>
 	</properties>
 
 	<dependencies>
