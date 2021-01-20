@@ -91,8 +91,8 @@ public class RestfulApplication {
 	}
 
 	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
-		var restTemplate = restTemplateBuilder.build();
+	public RestTemplate restTemplate() {
+		RestTemplate restTemplate = new RestTemplate();
 		if(!logSwitch) {
 			return restTemplate;
 		}
