@@ -19,7 +19,7 @@
 		<sonar.projectKey>ilam-natarajan_rest-app</sonar.projectKey>
 		<sonar.organization>ilam-natarajan</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<lombok.version>1.18.16</lombok.version>
+		<lombok.version>1.18.18</lombok.version>
 	</properties>
 
 	<dependencies>
@@ -73,7 +73,7 @@
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
-			<version>3.5.0</version>
+			<version>3.5.1</version>
 		</dependency>
 
 		<dependency>
