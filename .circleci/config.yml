@@ -21,7 +21,7 @@ jobs:
       # Then run your tests!
       - run:
           name: Test
-          command: mvn test
+          command: mvn -B package --file pom.xml -P coverage
 
 workflows:
   # Below is the definition of your workflow.
